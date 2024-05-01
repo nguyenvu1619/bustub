@@ -19,9 +19,11 @@ TEST(TrieDebugger, TestCase) {
   std::mt19937_64 gen(23333);
   zipfian_int_distribution<uint32_t> dis(0, 1000);
 
+  std::string test;
   auto trie = Trie();
-  for (uint32_t i = 0; i < 100; i++) {
+  for (uint32_t i = 0; i < 1; i++) {
     std::string key = fmt::format("{}", dis(gen));
+    test = key;
     auto value = dis(gen);
     switch (i) {
       // Test the first 3 values from the random generator.
@@ -40,6 +42,8 @@ TEST(TrieDebugger, TestCase) {
     trie = trie.Put<uint32_t>(key, value);
   }
 
+  auto value = trie.Get<uint32_t>(test);
+  std::cout << "value: " << *value << std::endl;
   // Put a breakpoint here.
 
   // (1) How many children nodes are there on the root?
